@@ -1,0 +1,88 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI/GameHUD.uss?fileID=7433441132597879392&amp;guid=c7953578454cc3e4199b22a4260f0f74&amp;type=3#GameHUD" />
+    <ui:VisualElement name="HUDRoot" class="hud-root">
+        <ui:VisualElement class="top-bar">
+            <ui:VisualElement class="room-info-panel" style="width: auto; height: auto;">
+                <ui:Label name="RoomShareHint" text="SHARE CODE" class="room-share-hint" />
+                <ui:VisualElement class="room-label-row">
+                    <ui:Label text="⚔" class="room-icon" />
+                    <ui:Label name="RoomCodeLabel" text="------" class="room-code-label" />
+                </ui:VisualElement>
+                <ui:Label name="PlayerCountLabel" text="0/10 Players" class="player-count-label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="KillFeed" class="killfeed-panel" />
+            <ui:VisualElement class="ammo-panel" style="bottom: -757%; right: 3%;">
+                <ui:Label name="WeaponNameLabel" text="RIFLE" class="weapon-name-label" />
+                <ui:Label name="AmmoCount" text="30" class="ammo-count" />
+                <ui:Label name="AmmoReserve" text="/ 90" class="ammo-reserve" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="TeamScorePanel" class="team-score-panel">
+            <ui:Label name="TeamALabel" text="A: 0" class="team-a-label" />
+            <ui:Label name="MatchTimerLabel" text="5:00" class="match-timer-label" />
+            <ui:Label name="TeamBLabel" text="B: 0" class="team-b-label" />
+        </ui:VisualElement>
+        <ui:VisualElement name="MatchOverlay" class="match-overlay">
+            <ui:Label name="MatchOverlayTitle" text="TEAM A WINS!" class="match-overlay-title" />
+            <ui:Label name="MatchOverlayDetail" text="A: 10  |  B: 7" class="match-overlay-detail" />
+        </ui:VisualElement>
+        <ui:VisualElement class="health-block" style="left: 500px; bottom: 26px;">
+            <ui:VisualElement class="health-header-row">
+                <ui:Label text="♥" class="health-icon" />
+                <ui:Label text="HP" class="health-text-label" />
+                <ui:Label name="HealthValueLabel" text="100" class="health-value-label" />
+            </ui:VisualElement>
+            <ui:VisualElement name="HealthBar" class="health-bar-bg">
+                <ui:VisualElement name="HealthFill" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="CrosshairContainer" class="crosshair-container" style="top: -10px; bottom: 11px; right: 0; left: 0;">
+            <ui:VisualElement name="Crosshair" class="crosshair-dot" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ScopeOverlay" class="scope-overlay">
+            <ui:VisualElement class="scope-reticle-h" />
+            <ui:VisualElement class="scope-reticle-v" />
+            <ui:VisualElement class="scope-circle" />
+            <ui:VisualElement class="scope-center-dot" />
+        </ui:VisualElement>
+        <ui:VisualElement name="DamageVignette" class="damage-vignette" />
+        <ui:VisualElement name="RespawnOverlay" class="respawn-overlay">
+            <ui:Label text="☠  YOU DIED  ☠" class="respawn-text" />
+            <ui:Label name="RespawnTimer" text="3" class="respawn-timer" />
+        </ui:VisualElement>
+        <ui:VisualElement name="ToastPanel" class="toast-panel">
+            <ui:Label name="ToastLabel" class="toast-label" />
+        </ui:VisualElement>
+        <ui:VisualElement name="JoystickLeftZone" class="joystick-left-zone">
+            <ui:VisualElement name="JoystickLeftBg" class="joystick-bg">
+                <ui:VisualElement name="JoystickLeftKnob" class="joystick-knob" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="SwipeZone" class="swipe-zone" />
+        <ui:VisualElement class="btn-fire-wrapper">
+            <ui:Label name="BtnFire" text="🎯" class="btn-fire" />
+        </ui:VisualElement>
+        <ui:VisualElement class="btn-grenade-wrapper">
+            <ui:Label name="BtnGrenade" text="💣" class="hud-btn btn-grenade-style" style="left: 119%; top: -127%; position: relative;" />
+        </ui:VisualElement>
+        <ui:VisualElement class="btn-medkit-wrapper">
+            <ui:Label name="BtnMedkit" text="💊" class="hud-btn btn-medkit-style" style="left: 17%; top: -136%;" />
+            <ui:Label name="MedkitCountLabel" text="2" class="medkit-count-label" style="top: -101px;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="VisualElement" class="btn-reload-wrapper">
+            <ui:Label name="BtnReload" text="🔄" class="hud-btn btn-reload-style" />
+        </ui:VisualElement>
+        <ui:VisualElement class="btn-mgun-wrapper">
+            <ui:Label name="BtnMGun" text="🔫" class="hud-btn btn-mgun-style" style="left: auto;" />
+        </ui:VisualElement>
+        <ui:VisualElement class="btn-sgun-wrapper">
+            <ui:Label name="BtnSGun" text="🪓" class="hud-btn btn-sgun-style" />
+        </ui:VisualElement>
+        <ui:VisualElement class="btn-jump-wrapper">
+            <ui:Label name="BtnJump" text="⬆" class="hud-btn btn-jump-style" />
+        </ui:VisualElement>
+        <ui:VisualElement class="btn-zoom-wrapper">
+            <ui:Label name="BtnZoom" text="🔍" class="hud-btn btn-zoom-style" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,317 @@
+
+/* ════════════════════════════════════════════════════
+   FULL SCREEN BACKDROP
+   ════════════════════════════════════════════════════ */
+.bg-root {
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(6, 6, 14);
+    padding: 32px;
+}
+
+/* ════════════════════════════════════════════════════
+   OUTER GLOW RING — subtle purple halo behind card
+   ════════════════════════════════════════════════════ */
+.glow-wrapper {
+    align-items: center;
+    justify-content: center;
+    border-radius: 26px;
+    width: 88%;
+    max-width: 460px;
+    min-width: 290px;
+    padding: 3px;
+    background-color: rgba(110, 60, 240, 0.28);
+}
+
+/* ════════════════════════════════════════════════════
+   GLASS CARD
+   ════════════════════════════════════════════════════ */
+.glass-card {
+    background-color: rgba(14, 12, 28, 0.97);
+    border-radius: 24px;
+    border-width: 1px;
+    border-color: rgba(140, 90, 255, 0.45);
+    padding-top: 36px;
+    padding-bottom: 36px;
+    padding-left: 32px;
+    padding-right: 32px;
+    align-items: stretch;
+    width: 100%;
+}
+
+/* ════════════════════════════════════════════════════
+   LOGO / TITLE BLOCK
+   ════════════════════════════════════════════════════ */
+.logo-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+.logo-icon {
+    font-size: 36px;
+    color: rgb(190, 130, 255);
+    margin-right: 10px;
+}
+.title-text {
+    font-size: 34px;
+    color: rgb(230, 200, 255);
+    -unity-font-style: bold;
+    letter-spacing: 6px;
+    -unity-text-align: middle-left;
+}
+.tagline-text {
+    font-size: 11px;
+    color: rgba(160, 130, 210, 0.65);
+    -unity-text-align: middle-center;
+    letter-spacing: 4px;
+    margin-bottom: 30px;
+}
+
+/* ════════════════════════════════════════════════════
+   NEON DIVIDER
+   ════════════════════════════════════════════════════ */
+.neon-divider {
+    height: 1px;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    background-color: rgba(120, 70, 240, 0.35);
+}
+
+/* ════════════════════════════════════════════════════
+   SECTION HEADER
+   ════════════════════════════════════════════════════ */
+.section-header {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.section-pip {
+    width: 4px;
+    height: 16px;
+    border-radius: 2px;
+    background-color: rgb(160, 90, 255);
+    margin-right: 8px;
+}
+.section-title {
+    font-size: 10px;
+    color: rgba(180, 140, 255, 0.9);
+    -unity-font-style: bold;
+    letter-spacing: 3px;
+}
+
+/* ════════════════════════════════════════════════════
+   TIMING BUTTONS — pill-style segmented selector
+   ════════════════════════════════════════════════════ */
+.timing-row {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    background-color: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    padding: 5px;
+    border-width: 1px;
+    border-color: rgba(120, 70, 220, 0.25);
+}
+.time-btn {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0);
+    color: rgba(180, 160, 220, 0.6);
+    font-size: 12px;
+    -unity-font-style: bold;
+    padding-top: 9px;
+    padding-bottom: 9px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-radius: 9px;
+    border-width: 0;
+    margin-left: 2px;
+    margin-right: 2px;
+    cursor: link;
+    -unity-text-align: middle-center;
+    transition-property: background-color, color;
+    transition-duration: 0.15s;
+}
+.time-btn:hover {
+    background-color: rgba(120, 70, 220, 0.3);
+    color: rgba(220, 200, 255, 0.9);
+}
+/* C# toggles this class on the active button */
+.time-btn-selected {
+    background-color: rgb(100, 55, 220);
+    color: rgb(255, 255, 255);
+    border-width: 0;
+}
+.time-btn-selected:hover {
+    background-color: rgb(120, 70, 240);
+}
+
+/* Duration display badge */
+.duration-badge {
+    -unity-text-align: middle-center;
+    font-size: 11px;
+    color: rgba(200, 175, 255, 0.7);
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+/* ════════════════════════════════════════════════════
+   HOST BUTTON — primary CTA
+   ════════════════════════════════════════════════════ */
+.btn-host {
+    background-color: rgb(88, 44, 210);
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    -unity-font-style: bold;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgba(170, 120, 255, 0.6);
+    margin-bottom: 8px;
+    cursor: link;
+    letter-spacing: 1px;
+    -unity-text-align: middle-center;
+    transition-property: scale, background-color;
+    transition-duration: 0.12s;
+}
+.btn-host:hover {
+    background-color: rgb(110, 62, 240);
+    scale: 1.015 1.015;
+}
+.btn-host:active {
+    background-color: rgb(72, 34, 190);
+    scale: 0.985 0.985;
+}
+.btn-host:disabled {
+    opacity: 0.38;
+}
+
+/* ════════════════════════════════════════════════════
+   JOIN BUTTON — teal/green accent
+   ════════════════════════════════════════════════════ */
+.btn-join {
+    background-color: rgb(18, 130, 82);
+    color: rgb(255, 255, 255);
+    font-size: 15px;
+    -unity-font-style: bold;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    border-radius: 12px;
+    border-width: 1px;
+    border-color: rgba(50, 220, 130, 0.5);
+    cursor: link;
+    letter-spacing: 1px;
+    -unity-text-align: middle-center;
+    transition-property: scale, background-color;
+    transition-duration: 0.12s;
+}
+.btn-join:hover {
+    background-color: rgb(24, 158, 98);
+    scale: 1.015 1.015;
+}
+.btn-join:active {
+    background-color: rgb(14, 106, 66);
+    scale: 0.985 0.985;
+}
+.btn-join:disabled {
+    opacity: 0.38;
+}
+
+/* ════════════════════════════════════════════════════
+   TEXT INPUT
+   ════════════════════════════════════════════════════ */
+.code-input {
+    font-size: 20px;
+    -unity-font-style: bold;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-top: 8px;
+    margin-bottom: 12px;
+    background-color: rgba(255, 255, 255, 0.04);
+    color: rgb(230, 215, 255);
+    border-radius: 10px;
+    border-color: rgba(130, 80, 220, 0.4);
+    border-width: 1px;
+    -unity-text-align: middle-center;
+    letter-spacing: 6px;
+    transition-property: border-color;
+    transition-duration: 0.15s;
+}
+.code-input:focus {
+    border-color: rgba(180, 120, 255, 0.85);
+    border-width: 1.5px;
+}
+
+/* ════════════════════════════════════════════════════
+   JOIN HINT LABEL
+   ════════════════════════════════════════════════════ */
+.join-hint {
+    font-size: 11px;
+    color: rgba(180, 170, 210, 0.6);
+    -unity-text-align: middle-center;
+    letter-spacing: 1px;
+}
+
+/* ════════════════════════════════════════════════════
+   STATUS BAR
+   ════════════════════════════════════════════════════ */
+.status-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px 14px;
+    background-color: rgba(255, 255, 255, 0.035);
+    border-radius: 8px;
+    border-width: 1px;
+    border-color: rgba(120, 80, 220, 0.2);
+}
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 4px;
+    background-color: rgb(100, 220, 130);
+    margin-right: 8px;
+}
+.status-label {
+    font-size: 11px;
+    color: rgba(190, 180, 220, 0.8);
+    white-space: normal;
+    flex-grow: 1;
+}
+
+/* ════════════════════════════════════════════════════
+   ROOM CODE DISPLAY (shown after host creates room)
+   ════════════════════════════════════════════════════ */
+.room-code-box {
+    display: none;
+    margin-top: 18px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color: rgba(100, 55, 200, 0.18);
+    border-radius: 14px;
+    border-width: 1.5px;
+    border-color: rgba(180, 130, 255, 0.6);
+    align-items: center;
+}
+.room-code-hint {
+    font-size: 9px;
+    color: rgba(180, 150, 255, 0.65);
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+}
+.room-code-value {
+    font-size: 32px;
+    -unity-font-style: bold;
+    color: rgb(230, 205, 255);
+    letter-spacing: 10px;
+    -unity-text-align: middle-center;
+}

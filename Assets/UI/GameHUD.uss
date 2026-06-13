@@ -1,0 +1,609 @@
+/* ═══════════════════════════════════════════════════════════════
+   GameHUD.uss
+   ALL positions copied 1:1 from Canvas RectTransform data.
+   Canvas = 1920x1080, scale factor = 1.
+   Anchor = right-center (1, 0.5) for most elements.
+   Formula: right  = 1920 - |anchoredX| - size/2
+             bottom = 540  + anchoredY  - size/2
+   ═══════════════════════════════════════════════════════════════ */
+
+.hud-root {
+    flex-grow: 1;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    overflow: hidden;
+}
+
+/* ══════════════════════════════════════════════════════
+   TOP BAR  (room info left, kill feed center, ammo right)
+   ══════════════════════════════════════════════════════ */
+.top-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 80px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.room-info-panel {
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgba(8, 8, 20, 0.82);
+    border-radius: 12px;
+    padding: 7px 16px;
+    border-width: 1px;
+    border-color: rgba(130, 80, 255, 0.6);
+}
+.room-label-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 2px;
+}
+.room-icon    { font-size: 13px; color: rgb(180,140,255); margin-right: 4px; }
+.room-code-label {
+    font-size: 16px;
+    color: rgb(220,195,255);
+    -unity-font-style: bold;
+    letter-spacing: 4px;
+}
+.room-share-hint {
+    font-size: 9px;
+    color: rgba(150,150,200,0.7);
+    letter-spacing: 2px;
+}
+.player-count-label {
+    font-size: 11px;
+    color: rgba(190,190,230,0.85);
+}
+
+.killfeed-panel {
+    flex-direction: column;
+    align-items: center;
+    width: 280px;
+}
+.killfeed-entry {
+    background-color: rgba(0,0,0,0.68);
+    border-radius: 6px;
+    padding: 4px 12px;
+    margin-bottom: 3px;
+    border-left-width: 3px;
+    border-color: rgba(255,70,70,0.9);
+}
+.killfeed-text {
+    font-size: 12px;
+    color: rgba(255,255,255,0.95);
+    -unity-font-style: bold;
+}
+.killfeed-you { color: rgb(255,210,60); }
+
+.ammo-panel {
+    flex-direction: column;
+    align-items: flex-end;
+    background-color: rgba(8,8,20,0.82);
+    border-radius: 12px;
+    padding: 7px 16px;
+    border-width: 1px;
+    border-color: rgba(60,180,255,0.5);
+}
+.weapon-name-label {
+    font-size: 10px;
+    color: rgba(130,190,255,0.8);
+    letter-spacing: 3px;
+}
+.ammo-count {
+    font-size: 34px;
+    color: white;
+    -unity-font-style: bold;
+    line-height: 36px;
+}
+.ammo-reserve {
+    font-size: 14px;
+    color: rgba(150,200,255,0.8);
+    -unity-font-style: bold;
+}
+
+/* ══════════════════════════════════════════════════════
+   CROSSHAIR  (absolute center)
+   ══════════════════════════════════════════════════════ */
+.crosshair-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    align-items: center;
+    justify-content: center;
+}
+.crosshair-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background-color: rgba(255,255,255,0.9);
+}
+
+/* ══════════════════════════════════════════════════════
+   HEALTH  (bottom-left, above left joystick)
+   ══════════════════════════════════════════════════════ */
+.health-block {
+    position: absolute;
+    left: 20px;
+    bottom: 180px;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.health-header-row {
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 4px;
+}
+.health-icon {
+    font-size: 18px;
+    color: rgb(255,80,100);
+    margin-right: 4px;
+}
+.health-text-label {
+    font-size: 11px;
+    color: rgba(200,200,220,0.8);
+    letter-spacing: 2px;
+    -unity-font-style: bold;
+}
+.health-value-label {
+    font-size: 28px;
+    color: white;
+    -unity-font-style: bold;
+    margin-left: 6px;
+}
+.health-bar-bg {
+    width: 200px;
+    height: 10px;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 5px;
+    overflow: hidden;
+    border-width: 1px;
+    border-color: rgba(255,255,255,0.15);
+}
+#HealthFill {
+    height: 100%;
+    width: 100%;
+    border-radius: 5px;
+    background-color: rgb(46,216,70);
+    transition-property: width, background-color;
+    transition-duration: 0.25s;
+}
+
+/* ══════════════════════════════════════════════════════
+   LEFT JOYSTICK  (stick)
+   Canvas: anchor right-center, pos (-1878, -338) → bottom-left corner
+   Mapped to: left:~20px, bottom:~20px
+   ══════════════════════════════════════════════════════ */
+.joystick-left-zone {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    width: 200px;
+    height: 200px;
+    align-items: center;
+    justify-content: center;
+}
+.joystick-bg {
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    background-color: rgba(255,255,255,0.06);
+    border-width: 2px;
+    border-color: rgba(255,255,255,0.22);
+    align-items: center;
+    justify-content: center;
+}
+.joystick-knob {
+    width: 68px;
+    height: 68px;
+    border-radius: 34px;
+    background-color: rgba(255,255,255,0.20);
+    border-width: 2px;
+    border-color: rgba(255,255,255,0.45);
+}
+
+/* ══════════════════════════════════════════════════════
+   TEAM SCORE PANEL - top center
+   ══════════════════════════════════════════════════════ */
+.team-score-panel {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    translate: -50% 0;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(0,0,0,0.7);
+    border-radius: 14px;
+    padding: 8px 20px;
+    border-width: 1px;
+    border-color: rgba(255,255,255,0.15);
+}
+.team-a-label {
+    font-size: 20px;
+    color: rgb(100,180,255);
+    -unity-font-style: bold;
+    margin-right: 20px;
+}
+.team-b-label {
+    font-size: 20px;
+    color: rgb(255,100,100);
+    -unity-font-style: bold;
+    margin-left: 20px;
+}
+.match-timer-label {
+    font-size: 24px;
+    color: white;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    min-width: 70px;
+}
+
+/* ══════════════════════════════════════════════════════
+   MATCH OVER OVERLAY
+   ══════════════════════════════════════════════════════ */
+.match-overlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.85);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.match-overlay-title {
+    font-size: 60px;
+    color: rgb(255,210,50);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    letter-spacing: 6px;
+}
+.match-overlay-detail {
+    font-size: 26px;
+    color: rgba(255,255,255,0.85);
+    -unity-text-align: middle-center;
+    margin-top: 20px;
+}
+
+/* ══════════════════════════════════════════════════════
+   SWIPE ZONE - right 50% of screen, transparent
+   ══════════════════════════════════════════════════════ */
+.swipe-zone {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 50%;
+    background-color: rgba(0,0,0,0);
+}
+
+/* ══════════════════════════════════════════════════════
+   MEDKIT COUNT BADGE
+   ══════════════════════════════════════════════════════ */
+.medkit-count-label {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
+    background-color: rgb(255,60,60);
+    color: white;
+    font-size: 13px;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    border-width: 1.5px;
+    border-color: white;
+}
+
+/* ══════════════════════════════════════════════════════
+   gunFire button
+   Canvas anchor(0,0)=bottom-left, pos(1452, 360)
+   left = 1452/1920 = 75.6%
+   bottom = 360/1080 = 33.3%
+   ══════════════════════════════════════════════════════ */
+.btn-fire-wrapper {
+    position: absolute;
+    left: 75.6%;
+    bottom: 33.3%;
+    translate: -50% 50%;
+}
+.btn-fire {
+    width: 160px;
+    height: 160px;
+    border-radius: 80px;
+    background-color: rgba(210,25,25,0.90);
+    border-width: 3px;
+    border-color: rgba(255,70,70,0.95);
+    font-size: 44px;
+    -unity-text-align: middle-center;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    transition-property: scale, background-color;
+    transition-duration: 0.08s;
+}
+.btn-fire:active {
+    background-color: rgba(255,40,40,1);
+    scale: 0.93 0.93;
+}
+
+/* ══════════════════════════════════════════════════════
+   Grenade_Button
+   Canvas right-center: x=-1793 y=68
+   left = (1920-1793)/1920 = 6.6%
+   bottom = (540+68)/1080 = 56.3%
+   ══════════════════════════════════════════════════════ */
+.btn-grenade-wrapper {
+    position: absolute;
+    left: 6.6%;
+    bottom: 56.3%;
+    translate: -50% 50%;
+}
+
+/* ══════════════════════════════════════════════════════
+   medkit
+   Canvas right-center: x=-1792 y=-133
+   left = (1920-1792)/1920 = 6.7%
+   bottom = (540-133)/1080 = 37.7%
+   ══════════════════════════════════════════════════════ */
+.btn-medkit-wrapper {
+    position: absolute;
+    left: 6.7%;
+    bottom: 37.7%;
+    translate: -50% 50%;
+}
+
+/* ══════════════════════════════════════════════════════
+   reload
+   Canvas right-center: x=-397 y=216
+   left = (1920-397)/1920 = 79.3%
+   bottom = (540+216)/1080 = 70.0%
+   ══════════════════════════════════════════════════════ */
+.btn-reload-wrapper {
+    position: absolute;
+    left: 79.3%;
+    bottom: 70.0%;
+    translate: -50% 50%;
+}
+
+/* ══════════════════════════════════════════════════════
+   Mgun
+   Canvas right-center: x=-258 y=405
+   left = (1920-258)/1920 = 86.6%
+   bottom = (540+405)/1080 = 87.5%
+   ══════════════════════════════════════════════════════ */
+.btn-mgun-wrapper {
+    position: absolute;
+    left: 86.6%;
+    bottom: 87.5%;
+    translate: -50% 50%;
+}
+
+/* ══════════════════════════════════════════════════════
+   Sgun
+   Canvas right-center: x=-167 y=217
+   left = (1920-167)/1920 = 91.3%
+   bottom = (540+217)/1080 = 70.1%
+   ══════════════════════════════════════════════════════ */
+.btn-sgun-wrapper {
+    position: absolute;
+    left: 91.3%;
+    bottom: 70.1%;
+    translate: -50% 50%;
+}
+
+/* ══════════════════════════════════════════════════════
+   jump
+   Canvas right-center: x=-145 y=-186
+   left = (1920-145)/1920 = 92.4%
+   bottom = (540-186)/1080 = 32.8%
+   ══════════════════════════════════════════════════════ */
+.btn-jump-wrapper {
+    position: absolute;
+    left: 92.4%;
+    bottom: 32.8%;
+    translate: -50% 50%;
+}
+
+/* ══════════════════════════════════════════════════════
+   zoom
+   Canvas right-center: x=-284 y=17
+   left = (1920-284)/1920 = 85.2%
+   bottom = (540+17)/1080 = 51.6%
+   ══════════════════════════════════════════════════════ */
+.btn-zoom-wrapper {
+    position: absolute;
+    left: 85.2%;
+    bottom: 51.6%;
+    translate: -50% 50%;
+}
+
+/* ══════════════════════════════════════════════════════
+   SHARED BUTTON STYLES
+   ══════════════════════════════════════════════════════ */
+.hud-btn {
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
+    font-size: 34px;
+    -unity-text-align: middle-center;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    border-width: 2px;
+    transition-property: scale;
+    transition-duration: 0.1s;
+}
+.hud-btn:active { scale: 0.88 0.88; }
+
+.btn-grenade-style {
+    background-color: rgba(150,60,20,0.88);
+    border-color: rgba(255,140,50,0.85);
+    color: rgb(255,160,80);
+}
+.btn-grenade-style.active {
+    background-color: rgba(220,70,20,0.95);
+    border-color: rgb(255,110,30);
+    color: white;
+}
+
+.btn-medkit-style {
+    background-color: rgba(25,160,90,0.88);
+    border-color: rgba(50,220,120,0.85);
+}
+
+.btn-reload-style {
+    background-color: rgba(160,140,15,0.88);
+    border-color: rgba(255,215,50,0.85);
+    color: rgb(255,225,50);
+}
+
+.btn-mgun-style {
+    background-color: rgba(30,50,110,0.88);
+    border-color: rgba(70,130,255,0.7);
+    color: rgb(130,180,255);
+}
+.btn-mgun-style.active {
+    background-color: rgba(50,80,200,0.95);
+    border-color: rgb(100,170,255);
+    color: white;
+}
+
+.btn-sgun-style {
+    background-color: rgba(30,80,55,0.88);
+    border-color: rgba(60,190,110,0.7);
+    color: rgb(100,200,140);
+}
+.btn-sgun-style.active {
+    background-color: rgba(40,130,80,0.95);
+    border-color: rgb(70,220,130);
+    color: white;
+}
+
+.btn-jump-style {
+    background-color: rgba(25,130,200,0.88);
+    border-color: rgba(70,170,255,0.85);
+}
+
+.btn-zoom-style {
+    background-color: rgba(110,50,200,0.88);
+    border-color: rgba(175,110,255,0.85);
+}
+
+/* ══════════════════════════════════════════════════════
+   OVERLAYS
+   ══════════════════════════════════════════════════════ */
+.scope-overlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.88);
+    align-items: center;
+    justify-content: center;
+}
+.scope-circle {
+    width: 480px;
+    height: 480px;
+    border-radius: 240px;
+    background-color: rgba(0,0,0,0);
+    border-width: 4px;
+    border-color: rgba(255,255,255,0.5);
+}
+.scope-reticle-h {
+    position: absolute;
+    width: 480px;
+    height: 2px;
+    background-color: rgba(255,255,255,0.3);
+}
+.scope-reticle-v {
+    position: absolute;
+    width: 2px;
+    height: 480px;
+    background-color: rgba(255,255,255,0.3);
+}
+.scope-center-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background-color: rgba(255,70,70,0.95);
+}
+
+.damage-vignette {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(200,0,0,0.38);
+}
+
+.respawn-overlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0,0,0,0.82);
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.respawn-text {
+    font-size: 40px;
+    color: rgba(255,80,80,0.95);
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    letter-spacing: 6px;
+}
+.respawn-timer {
+    font-size: 80px;
+    color: white;
+    -unity-font-style: bold;
+    -unity-text-align: middle-center;
+    margin-top: 10px;
+}
+
+.toast-panel {
+    position: absolute;
+    top: 90px;
+    left: 0; right: 0;
+    align-items: center;
+    display: none;
+}
+.toast-label {
+    background-color: rgba(0,0,0,0.78);
+    border-radius: 22px;
+    padding: 8px 24px;
+    font-size: 14px;
+    color: rgb(255,220,90);
+    -unity-font-style: bold;
+    border-width: 1px;
+    border-color: rgba(255,200,50,0.55);
+    letter-spacing: 1px;
+}
+
+/* ══════════════════════════════════════════════════════
+   MATCH OVER — Return to Menu button
+   ══════════════════════════════════════════════════════ */
+.match-return-btn {
+    margin-top: 36px;
+    background-color: rgba(80, 50, 180, 0.92);
+    color: white;
+    font-size: 18px;
+    -unity-font-style: bold;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 12px;
+    border-width: 1.5px;
+    border-color: rgba(160, 120, 255, 0.85);
+    cursor: link;
+    transition-property: scale, background-color;
+    transition-duration: 0.12s;
+}
+.match-return-btn:hover {
+    background-color: rgba(110, 70, 230, 0.98);
+    scale: 1.04 1.04;
+}
+.match-return-btn:active {
+    scale: 0.96 0.96;
+}

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML
+    xmlns:ui="UnityEngine.UIElements"
+    xmlns:uie="UnityEditor.UIElements"
+    xsi="http://www.w3.org/2001/XMLSchema-instance"
+    engine="UnityEngine.UIElements"
+    editor="UnityEditor.UIElements"
+    noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+    editor-extension-mode="False">
+
+    <!-- Reference external stylesheet — fixes "Style requires path or src" error -->
+    <Style src="project://database/Assets/UI/MainMenu.uss" />
+
+    <!-- FULL SCREEN BACKDROP -->
+    <ui:VisualElement class="bg-root">
+
+        <!-- GLOW HALO + GLASS CARD -->
+        <ui:VisualElement class="glow-wrapper">
+            <ui:VisualElement class="glass-card">
+
+                <!-- LOGO / TITLE -->
+                <ui:VisualElement class="logo-row">
+                    <ui:Label text="&#x2694;" class="logo-icon" />
+                    <ui:Label text="TDM ARENA" class="title-text" />
+                </ui:VisualElement>
+                <ui:Label text="TEAM  DEATHMATCH  ONLINE" class="tagline-text" />
+
+                <!-- SECTION: MATCH DURATION -->
+                <ui:VisualElement class="section-header">
+                    <ui:VisualElement class="section-pip" />
+                    <ui:Label text="MATCH DURATION" class="section-title" />
+                </ui:VisualElement>
+
+                <!-- Segmented pill timing selector -->
+                <ui:VisualElement class="timing-row">
+                    <ui:Button name="Time1Min"  text="1 MIN"  class="time-btn" />
+                    <ui:Button name="Time3Min"  text="3 MIN"  class="time-btn" />
+                    <ui:Button name="Time5Min"  text="5 MIN"  class="time-btn time-btn-selected" />
+                    <ui:Button name="Time10Min" text="10 MIN" class="time-btn" />
+                </ui:VisualElement>
+                <ui:Label name="SelectedTimeLabel" text="Selected  &gt;  5 minutes" class="duration-badge" />
+
+                <!-- SECTION: HOST -->
+                <ui:VisualElement class="section-header">
+                    <ui:VisualElement class="section-pip" />
+                    <ui:Label text="CREATE GAME" class="section-title" />
+                </ui:VisualElement>
+                <ui:Button name="HostButton" text="Host New Game" class="btn-host" />
+
+                <!-- DIVIDER -->
+                <ui:VisualElement class="neon-divider" />
+
+                <!-- SECTION: JOIN -->
+                <ui:VisualElement class="section-header">
+                    <ui:VisualElement class="section-pip" />
+                    <ui:Label text="JOIN GAME" class="section-title" />
+                </ui:VisualElement>
+                <ui:Label text="Enter 6-character room code" class="join-hint" />
+                <ui:TextField
+                    name="CodeInput"
+                    placeholder-text="XXXXXX"
+                    class="code-input"
+                    max-length="6" />
+                <ui:Button name="JoinButton" text="Join Game" class="btn-join" />
+
+                <!-- STATUS BAR -->
+                <ui:VisualElement class="status-row">
+                    <ui:VisualElement class="status-dot" />
+                    <ui:Label name="StatusLabel" text="Connecting to Master Server..." class="status-label" />
+                </ui:VisualElement>
+
+                <!-- ROOM CODE REVEALED AFTER HOST CREATES ROOM -->
+                <ui:VisualElement name="RoomCodeDisplay" class="room-code-box">
+                    <ui:Label text="SHARE CODE" class="room-code-hint" />
+                    <ui:Label name="RoomCodeValue" text="" class="room-code-value" />
+                </ui:VisualElement>
+
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>
