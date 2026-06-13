@@ -26,6 +26,14 @@ public class NetworkedGrenade : MonoBehaviourPun
 
     private void Start()
     {
+        // CRITICAL FIX: If this script is accidentally attached to the visual weapon model
+        // in the player's hand (which has a parent), DO NOT run the grenade logic!
+        // This prevents the player from blowing themselves up every 3 seconds.
+        if (transform.parent != null)
+        {
+            return;
+        }
+
         rb = GetComponent<Rigidbody>();
 
         // Push the grenade forward instantly on creation
@@ -76,8 +84,11 @@ public class NetworkedGrenade : MonoBehaviourPun
                     if (targetRb != null)
                         targetRb.AddExplosionForce(blastForce, transform.position, explosionRadius);
                 }
+            }
 
-                // ONLY MasterClient destroys the networked object — this fixes view 2004
+            // ONLY the OWNER destroys the networked object! MasterClient destroying it causes view 2004 error if it doesn't own it.
+            if (photonView.IsMine)
+            {
                 PhotonNetwork.Destroy(gameObject);
             }
         }

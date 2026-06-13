@@ -106,6 +106,15 @@ public class AdvancedPlayerController : MonoBehaviourPun
         if (crouchAction != null) crouchAction.performed -= OnCrouchPerformed;
     }
 
+    private void OnDestroy()
+    {
+        // Unsubscribe from HUD to prevent dangling references on respawn
+        if (photonView != null && photonView.IsMine && GameHUDController.Instance != null)
+        {
+            GameHUDController.Instance.OnJumpPressed -= MobileJump;
+        }
+    }
+
     private void Update()
     {
         if (!photonView.IsMine) return;

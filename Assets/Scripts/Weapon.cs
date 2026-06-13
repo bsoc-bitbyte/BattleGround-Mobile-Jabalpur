@@ -4,7 +4,7 @@ public class Weapon : MonoBehaviour
 {
     [SerializeField] private float damage;
     [SerializeField] private float fireRate;
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera fpsCamera;
     [SerializeField] private float nextFire;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

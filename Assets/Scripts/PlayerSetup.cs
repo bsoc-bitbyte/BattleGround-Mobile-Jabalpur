@@ -51,7 +51,7 @@ public class PlayerSetup : MonoBehaviourPun
         }
 
         // ---- Step 1.5: Disable any OTHER cameras in the scene (e.g. Lobby Camera) ----
-        foreach (var sceneCam in FindObjectsOfType<Camera>(true))
+        foreach (var sceneCam in Object.FindObjectsByType<Camera>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             if (sceneCam != cam)
             {
@@ -65,7 +65,7 @@ public class PlayerSetup : MonoBehaviourPun
 
         // ---- Step 2.5: Enforce EXACTLY ONE AudioListener in the scene ----
         // Disable any pre-existing listeners (from SampleScene, dead players, etc)
-        foreach (var listener in FindObjectsOfType<AudioListener>(true))
+        foreach (var listener in Object.FindObjectsByType<AudioListener>(FindObjectsInactive.Include, FindObjectsSortMode.None))
         {
             listener.enabled = false;
         }

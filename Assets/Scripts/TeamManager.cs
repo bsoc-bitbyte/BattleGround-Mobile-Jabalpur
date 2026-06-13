@@ -28,7 +28,6 @@ public class TeamManager : MonoBehaviourPunCallbacks
 
     // ── Sync interval ──────────────────────────────────────────────────────────
     private const float SyncInterval = 5f;
-    private float syncTimer = 0f;
 
     // Custom property key used across all scripts
     public const string PropMatchTime = "matchTime";

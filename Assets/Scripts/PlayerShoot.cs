@@ -84,8 +84,12 @@ public class PlayerShoot : MonoBehaviourPun
     // Unity lifecycle
     // ═══════════════════════════════════════════════════════════════════════════
 
+    private Vector3 defaultWeaponHolderPos;
+
     private void Awake()
     {
+        if (weaponHolder != null) defaultWeaponHolderPos = weaponHolder.localPosition;
+
         // CRITICAL: Only set up input for the local player.
         if (!photonView.IsMine) return;
 
@@ -124,29 +128,46 @@ public class PlayerShoot : MonoBehaviourPun
             hud.OnFirePressed  += MobileFireStart;
             hud.OnFireReleased += MobileFireStop;
             hud.OnReloadPressed+= Reload;
-            hud.OnGrenadePressed += () => SwitchWeaponNetworked(2);
-            hud.OnMGunPressed  += () => SwitchWeaponNetworked(0);
-            hud.OnSGunPressed  += () => SwitchWeaponNetworked(1);
-            hud.OnZoomPressed  += () =>
-            {
-                var scope = GetComponent<PlayerScope>();
-                scope?.SetScopeFromHUD(!isScoped);
-                isScoped = !isScoped;
-            };
+            hud.OnGrenadePressed += OnGrenadePressedHUD;
+            hud.OnMGunPressed  += OnMGunPressedHUD;
+            hud.OnSGunPressed  += OnSGunPressedHUD;
+            hud.OnZoomPressed  += OnZoomPressedHUD;
         }
 
         // Push initial ammo display
         PushAmmoToHUD();
+
+        // CRITICAL FIX: Force sync the initial weapon state so late-joining clients
+        // activate the correct weapon model and the host isn't invisible.
+        SwitchWeaponNetworked(currentWeaponIndex);
     }
 
     private void OnDestroy()
     {
-        if (GameHUDController.Instance != null)
+        if (photonView != null && photonView.IsMine && GameHUDController.Instance != null)
         {
             var hud = GameHUDController.Instance;
             hud.OnFirePressed   -= MobileFireStart;
             hud.OnFireReleased  -= MobileFireStop;
             hud.OnReloadPressed -= Reload;
+            hud.OnGrenadePressed -= OnGrenadePressedHUD;
+            hud.OnMGunPressed  -= OnMGunPressedHUD;
+            hud.OnSGunPressed  -= OnSGunPressedHUD;
+            hud.OnZoomPressed  -= OnZoomPressedHUD;
+        }
+    }
+
+    // ── HUD Event Methods (to allow proper unsubscription) ──
+    private void OnGrenadePressedHUD() => SwitchWeaponNetworked(2);
+    private void OnMGunPressedHUD()    => SwitchWeaponNetworked(0);
+    private void OnSGunPressedHUD()    => SwitchWeaponNetworked(1);
+    private void OnZoomPressedHUD()
+    {
+        var scope = GetComponent<PlayerScope>();
+        if (scope != null)
+        {
+            scope.SetScopeFromHUD(!isScoped);
+            isScoped = !isScoped;
         }
     }
 
@@ -448,7 +469,10 @@ public class PlayerShoot : MonoBehaviourPun
     {
         if (recoilScript != null) recoilScript.enabled = false;
 
-        Vector3 originalPos = weaponHolder.localPosition;
+        // CRITICAL FIX: Use the default position saved in Awake, not the current localPosition.
+        // If multiple RPCs arrive on the same frame (like when joining late), the current localPosition
+        // might already be dipped, causing the weapon to sink through the floor and become invisible!
+        Vector3 originalPos = defaultWeaponHolderPos;
         Vector3 dipPos      = originalPos + new Vector3(0, -0.6f, 0);
 
         float t = 0;

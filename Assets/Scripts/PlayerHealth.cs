@@ -27,7 +27,7 @@ public class PlayerHealth : MonoBehaviourPun
 
         if (photonView.IsMine)
         {
-            gameHUD = FindObjectOfType<GameHUD>();
+            gameHUD = Object.FindFirstObjectByType<GameHUD>();
             PushHealthToHUD();
 
             // Push initial medkit count
@@ -116,7 +116,7 @@ public class PlayerHealth : MonoBehaviourPun
 
     private void PushHealthToHUD()
     {
-        if (gameHUD == null) gameHUD = FindObjectOfType<GameHUD>();
+        if (gameHUD == null) gameHUD = Object.FindFirstObjectByType<GameHUD>();
         if (gameHUD != null)
             gameHUD.SetHealthRatio(currentHealth / maxHealth);
     }
