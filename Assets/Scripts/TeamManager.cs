@@ -59,6 +59,11 @@ public class TeamManager : MonoBehaviourPunCallbacks
     // ── Photon: joined a room ─────────────────────────────────────────────────
     public override void OnJoinedRoom()
     {
+        // Reset match state for a fresh start in the new room
+        teamAKills = 0;
+        teamBKills = 0;
+        matchEnded = false;
+        
         // Read match duration from room custom properties (set by host in MainMenuUI)
         // This is the correct place — room props are guaranteed available here.
         object val;
@@ -86,8 +91,16 @@ public class TeamManager : MonoBehaviourPunCallbacks
         // Only the MasterClient drives the timer
         if (PhotonNetwork.IsMasterClient)
         {
+            StopAllCoroutines();
             StartCoroutine(SyncStateCoroutine());
         }
+    }
+
+    public override void OnLeftRoom()
+    {
+        // Immediately stop logic when we leave
+        matchEnded = true;
+        StopAllCoroutines();
     }
 
     private void Update()

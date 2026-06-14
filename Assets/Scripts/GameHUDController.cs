@@ -360,20 +360,32 @@ public class GameHUDController : MonoBehaviourPunCallbacks
         if (matchOverlayDetail != null) matchOverlayDetail.text = $"A: {teamAKills}  |  B: {teamBKills}";
         SetVisible(matchOverlay, true);
 
-        // Add a Return to Menu button dynamically if not already present
-        if (matchOverlay.Q<Button>("ReturnToMenuBtn") == null)
+        // Remove existing button if any to ensure fresh event subscription
+        var existingBtn = matchOverlay.Q<Button>("ReturnToMenuBtn");
+        if (existingBtn != null)
         {
-            var returnBtn = new Button(() =>
-            {
-                SetVisible(matchOverlay, false);
-                // Leave room → OnLeftRoom in MainMenuUI will call ShowMenu()
-                PhotonNetwork.LeaveRoom();
-            });
-            returnBtn.name = "ReturnToMenuBtn";
-            returnBtn.text = "🏠  Return to Menu";
-            returnBtn.AddToClassList("match-return-btn");
-            matchOverlay.Add(returnBtn);
+            matchOverlay.Remove(existingBtn);
         }
+
+        var returnBtn = new Button();
+        returnBtn.clicked += () =>
+        {
+            Debug.Log("[GameHUDController] Return to menu button clicked!");
+            SetVisible(matchOverlay, false);
+            PhotonNetwork.LeaveRoom();
+        };
+        returnBtn.name = "ReturnToMenuBtn";
+        returnBtn.text = "🏠  Return to Menu";
+        returnBtn.AddToClassList("match-return-btn");
+        matchOverlay.Add(returnBtn);
+
+        matchOverlay.BringToFront();
+
+        if (swipeZone != null) swipeZone.pickingMode = PickingMode.Ignore;
+        if (leftZone != null) leftZone.pickingMode = PickingMode.Ignore;
+
+        UnityEngine.Cursor.lockState = CursorLockMode.None;
+        UnityEngine.Cursor.visible = true;
     }
 
     /// <summary>Updates the medkit count badge. Dims badge when count is 0.</summary>
@@ -388,7 +400,27 @@ public class GameHUDController : MonoBehaviourPunCallbacks
     // Photon room info
     // ═══════════════════════════════════════════════════════════════════════════
 
-    public override void OnJoinedRoom()                    => RefreshRoomInfo();
+    public override void OnJoinedRoom()
+    {
+        SetVisible(root, true);
+        
+        // Restore mobile inputs picking mode in case they were disabled by Match Over
+        if (swipeZone != null) swipeZone.pickingMode = PickingMode.Position;
+        if (leftZone != null) leftZone.pickingMode = PickingMode.Position;
+        
+        // Clear any old UI state
+        if (killFeedPanel != null) killFeedPanel.Clear();
+        SetVisible(matchOverlay, false);
+        SetVisible(respawnOverlay, false);
+        
+        RefreshRoomInfo();
+    }
+
+    public override void OnLeftRoom()
+    {
+        SetVisible(root, false);
+        StopAllCoroutines(); // Stop all damage/respawn coroutines so they don't leak into the menu
+    }
     public override void OnPlayerEnteredRoom(Player _)     => RefreshRoomInfo();
     public override void OnPlayerLeftRoom(Player _)        => RefreshRoomInfo();
 

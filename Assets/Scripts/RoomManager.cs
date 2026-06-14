@@ -45,6 +45,12 @@ public class RoomManager : MonoBehaviourPunCallbacks
         Debug.LogWarning("[RoomManager] Disconnected: " + cause);
     }
 
+    public override void OnLeftRoom()
+    {
+        // Prevent player from spawning in the main menu if they left while dead!
+        StopAllCoroutines();
+    }
+
     // ── Spawn / Respawn ───────────────────────────────────────────────────────
     public void SpawnLocalPlayer()
     {
